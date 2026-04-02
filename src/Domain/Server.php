@@ -192,15 +192,25 @@ class Server {
     //         case 2: return $bytes .= ' МБ';
     //     }
     // }
+
+    /**
+     * Проверка места на диске сервера
+     * 
+     * @return bool
+     */
+    public function isDiskUsageHigh(int $limit = 90):bool {
+        return $this->getDiskUsagePercent() >= $limit;
+    }
 }
 
 $server = new Server(
     1,
     'adminvps',
     new DateTime('2026-04-01'),
-    0,   // 1 ГБ всего
-    536870912   // 0.5 ГБ использовано
+    1536870912,   // 1 ГБ всего
+    5368709121   // 0.5 ГБ использовано
 );
 
-$serverMem = $server->getDiskUsagePercent();
-var_dump($serverMem);
+$serverMem = $server->isDiskUsageHigh();
+
+// var_dump($serverMem);

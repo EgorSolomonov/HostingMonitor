@@ -34,21 +34,28 @@ class HostingMonitor {
     }
 
     /**
-     * Проверка всех серверов и показ уведомлений для каждого
+     * Проверка всех серверов и показ уведомлений, в зависимости от состояния, для каждого
      * 
      * @return void
      */
     public function checkAllServers(): void {
         $allServers = $this->serverRepository->findAll();
-
+        
         foreach ($allServers as $key => $server) {
+            $message = [];
             if ($server->isExpired()){
-                $this->notifier->notify($server, "❌ СЕРВЕР ПРОСРОЧЕН <br>");
+                $message[] = "❌ СЕРВЕР ПРОСРОЧЕН";
             }else if ($server->willExpireSoon()) {
-                $this->notifier->notify($server, "⚠️ Истекает в течение недели <br>");
+                $message[] = "⚠️ Истекает в течение недели";
             }else if ($server->willNotExpireSoon()) {
-                $this->notifier->notify($server, "Все в порядке, сервер работает! <br>");
+                $message[] = "Все в порядке, сервер работает!";
             }
+            
+            if ($server->isDiskUsageHigh()) {
+                $message[] = "Диск заполнен на {$server->getDiskUsagePercent()}%";
+            }
+
+            $this->notifier->notify($server, implode(' | ', $message) . ' <br>');
         }
     }
 }
@@ -58,8 +65,8 @@ $HM = new HostingMonitor(
     new ConsoleNotifier(),
     new ArrayServerRepository(
         [
-            new Server(1, 'adminvps.ru', new DateTime('2026-01-01')),
-            new Server(2, 'reg.ru', new DateTime('2026-04-04')),
+            new Server(1, 'adminvps.ru', new DateTime('2026-01-01'), 1536870912, 536870912),
+            new Server(2, 'reg.ru', new DateTime('2026-04-11'), 1536870912, 536870912)
         ]
     )
 );

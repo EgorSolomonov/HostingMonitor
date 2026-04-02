@@ -24,6 +24,12 @@ class ArrayServerRepository implements ServerRepositoryInterface
         $this->servers = $servers;
     }
 
+    /**
+     * Поиск сервера по его id
+     * 
+     * @param int $id,
+     * @return ?Server
+     */
     public function findById(int $id): ?Server {
         foreach ($this->servers as $server) {
             if($server->getId() === $id) {
@@ -34,10 +40,21 @@ class ArrayServerRepository implements ServerRepositoryInterface
         return null;
     }
 
+    /**
+     * Поиск всех серверов сразу
+     * 
+     * @return array
+     */
     public function findAll(): array {
         return $this->servers;
     }
 
+    /**
+     * Поиск всех серверов сразу
+     * 
+     * @param Server $server
+     * @return void
+     */
     public function save(Server $server): void {
         foreach ($this->servers as $key => $value) {
             if($value->getId() === $server->getId()) {
