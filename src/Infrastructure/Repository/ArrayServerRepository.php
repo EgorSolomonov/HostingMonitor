@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
 
-include_once('../interfaces/ServerRepositoryInterface.php');
-include_once('../classes/Server.php');
+namespace HostingMonitor\Infrastructure\Repository;
+
+use HostingMonitor\Domain\Server;
 
 /**
  * Класс ArrayServerRepository выполняет контракт по сохранению,обновлению и выводу инфы о сервере от ServerRepositoryInterface
@@ -66,20 +67,3 @@ class ArrayServerRepository implements ServerRepositoryInterface
             $this->servers[] = $server; // добавляем новый
     }
 }
-
-// $serverArrayRepo = new ArrayServerRepository(
-//     [
-//         new Server(1, 'test', new DateTime('2026-01-01')),
-//         new Server(2, '2test2', new DateTime('2026-04-04')),
-//     ]
-// );
-
-// $get1 = $serverArrayRepo->findById(1);
-
-// $getAll = $serverArrayRepo->findAll();
-
-// $serverArrayRepo->save(new Server(1, 'test_new', new DateTime('2026-12-01')));
-
-// echo "<pre>";
-// var_dump($getAll);
-// echo "</pre>";

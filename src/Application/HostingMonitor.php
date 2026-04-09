@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-include_once("../interfaces/NotifierInterface.php");
-include_once("../interfaces/ServerRepositoryInterface.php");
-include_once("../notifiers/ConsoleNotifier.php");
-include_once("../repositories/ArrayServerRepository.php");
-include_once('../classes/Server.php');
+namespace HostingMonitor\Application;
+
+use HostingMonitor\Domain\Server;
+use HostingMonitor\Infrastructure\Notifier\NotifierInterface;
+use HostingMonitor\Infrastructure\Repository\ServerRepositoryInterface;
 
 /**
  * Класс HostingMonitor, связывает NotifierInterface и ServerRepositoryInterface для проверки и показа информации о серверах
@@ -59,16 +59,3 @@ class HostingMonitor {
         }
     }
 }
-
-
-$HM = new HostingMonitor(
-    new ConsoleNotifier(),
-    new ArrayServerRepository(
-        [
-            new Server(1, 'adminvps.ru', new DateTime('2026-01-01'), 1536870912, 536870912),
-            new Server(2, 'reg.ru', new DateTime('2026-04-11'), 1536870912, 536870912)
-        ]
-    )
-);
-
-$HM->checkAllServers();

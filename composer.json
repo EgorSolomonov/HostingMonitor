@@ -1,0 +1,19 @@
+{
+    "name": "egor/hosting-monitor",
+    "description": "Модуль мониторинга хостинга для 1С-Битрикс",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "EgorSolomonov"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "HostingMonitor\\": "src/"
+        }
+    }
+}

@@ -1,6 +1,11 @@
 <?php
 declare(strict_types=1); // используем строгую типизацию
 
+namespace HostingMonitor\Domain;
+
+use DateTime;
+use InvalidArgumentException;
+
 /**
  * Класс Server представляет сущность сервера/хостинга
  * 
@@ -202,15 +207,3 @@ class Server {
         return $this->getDiskUsagePercent() >= $limit;
     }
 }
-
-$server = new Server(
-    1,
-    'adminvps',
-    new DateTime('2026-04-01'),
-    1536870912,   // 1 ГБ всего
-    5368709121   // 0.5 ГБ использовано
-);
-
-$serverMem = $server->isDiskUsageHigh();
-
-// var_dump($serverMem);

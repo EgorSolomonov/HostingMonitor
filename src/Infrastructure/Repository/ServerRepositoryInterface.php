@@ -1,5 +1,9 @@
 <?php
 
+namespace HostingMonitor\Infrastructure\Repository;
+
+use HostingMonitor\Domain\Server;
+
 /**
  * Интерфейс для работы с данными сервера
  */
